@@ -3,10 +3,10 @@ import { Mail, Send, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
 import Logo from "./Logo.jsx";
 import Eyebrow from "./ui/Eyebrow.jsx";
 
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/xnpaonok";
+const CONTACT_ENDPOINT = "/api/contact";
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [form, setForm] = useState({ name: "", email: "", message: "", company: "" });
   const [status, setStatus] = useState("idle"); // idle | submitting | success | error
 
   const handleSubmit = async (e) => {
@@ -14,7 +14,7 @@ export default function Contact() {
     setStatus("submitting");
 
     try {
-      const res = await fetch(FORMSPREE_ENDPOINT, {
+      const res = await fetch(CONTACT_ENDPOINT, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -25,7 +25,7 @@ export default function Contact() {
 
       if (res.ok) {
         setStatus("success");
-        setForm({ name: "", email: "", message: "" });
+        setForm({ name: "", email: "", message: "", company: "" });
       } else {
         setStatus("error");
       }
@@ -72,6 +72,17 @@ export default function Contact() {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+              {/* Honeypot: hidden from people, bots fill it in */}
+              <input
+                type="text"
+                name="company"
+                value={form.company}
+                onChange={(e) => setForm({ ...form, company: e.target.value })}
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                className="hidden"
+              />
               <div>
                 <label className="tracked-label text-xs text-neutral-400 mb-2 block">Name</label>
                 <input

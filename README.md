@@ -44,5 +44,5 @@ src/
 ## Things to update before launch
 
 - **Contact email** — replace the placeholder `hello@growthera.co` in `Contact.jsx`.
-- **Contact form** — it currently just shows a "Message sent" success state in the browser. It isn't wired to send anywhere yet. Easiest options: [Formspree](https://formspree.io), [Resend](https://resend.com), or a small serverless function.
+- **Contact form** — submissions POST to `/api/contact` (a Vercel serverless function in `api/contact.js`), which emails them via [Resend](https://resend.com). Set `RESEND_API_KEY`, `CONTACT_FROM` and `CONTACT_TO` in Vercel → Settings → Environment Variables (see `.env.example`). Use `npx vercel dev` to test locally — `npm run dev` does not serve `/api`.
 - **Services copy** — the four services listed are placeholders based on common agency offerings — edit `Services.jsx` to match what you actually offer.
