@@ -1,13 +1,69 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Mail, Send, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
 import Logo from "./Logo.jsx";
 import Eyebrow from "./ui/Eyebrow.jsx";
 
 const CONTACT_ENDPOINT = "/api/contact";
+const TURNSTILE_SCRIPT = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+// Falls back to Cloudflare's always-pass test key when no real key is configured.
+const TURNSTILE_SITE_KEY =
+  import.meta.env.VITE_TURNSTILE_SITE_KEY || "1x00000000000000000000AA";
+
+let turnstileLoader;
+function loadTurnstile() {
+  if (window.turnstile) return Promise.resolve(window.turnstile);
+  if (!turnstileLoader) {
+    turnstileLoader = new Promise((resolve, reject) => {
+      const script = document.createElement("script");
+      script.src = TURNSTILE_SCRIPT;
+      script.async = true;
+      script.onload = () => resolve(window.turnstile);
+      script.onerror = () => {
+        turnstileLoader = null;
+        reject(new Error("Failed to load Turnstile"));
+      };
+      document.head.appendChild(script);
+    });
+  }
+  return turnstileLoader;
+}
 
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "", company: "" });
   const [status, setStatus] = useState("idle"); // idle | submitting | success | error
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const turnstileRef = useRef(null);
+  const widgetIdRef = useRef(null);
+
+  const showForm = status !== "success";
+
+  useEffect(() => {
+    if (!showForm) return;
+    let cancelled = false;
+
+    loadTurnstile()
+      .then((turnstile) => {
+        if (cancelled || !turnstileRef.current) return;
+        widgetIdRef.current = turnstile.render(turnstileRef.current, {
+          sitekey: TURNSTILE_SITE_KEY,
+          theme: "dark",
+          size: "flexible",
+          callback: (token) => setTurnstileToken(token),
+          "expired-callback": () => setTurnstileToken(""),
+          "error-callback": () => setTurnstileToken(""),
+        });
+      })
+      .catch(() => {});
+
+    return () => {
+      cancelled = true;
+      if (widgetIdRef.current != null && window.turnstile) {
+        window.turnstile.remove(widgetIdRef.current);
+      }
+      widgetIdRef.current = null;
+      setTurnstileToken("");
+    };
+  }, [showForm]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,7 +76,7 @@ export default function Contact() {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, turnstileToken }),
       });
 
       if (res.ok) {
@@ -32,6 +88,12 @@ export default function Contact() {
     } catch {
       setStatus("error");
     }
+
+    // Tokens are single-use; get a fresh one for any retry.
+    if (widgetIdRef.current != null && window.turnstile) {
+      window.turnstile.reset(widgetIdRef.current);
+    }
+    setTurnstileToken("");
   };
 
   return (
@@ -122,6 +184,8 @@ export default function Contact() {
                 />
               </div>
 
+              <div ref={turnstileRef} className="min-h-[65px]" />
+
               {status === "error" && (
                 <div className="flex items-center gap-2 text-sm text-red-400">
                   <AlertCircle size={16} />
@@ -131,7 +195,7 @@ export default function Contact() {
 
               <button
                 type="submit"
-                disabled={status === "submitting"}
+                disabled={status === "submitting" || !turnstileToken}
                 className="cut tracked-label text-xs inline-flex items-center justify-center gap-2 bg-era-green text-neutral-950 px-6 py-3 font-semibold hover:bg-white transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 {status === "submitting" ? (
