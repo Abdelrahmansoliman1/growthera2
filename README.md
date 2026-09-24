@@ -44,5 +44,5 @@ src/
 ## Things to update before launch
 
 - **Contact email** — replace the placeholder `hello@growthera.co` in `Contact.jsx`.
-- **Contact form** — submissions POST to `/api/contact` (a Vercel serverless function in `api/contact.js`), which emails them via [Resend](https://resend.com). Spam is blocked with [Cloudflare Turnstile](https://www.cloudflare.com/products/turnstile/), verified server-side. Set `RESEND_API_KEY`, `CONTACT_FROM`, `CONTACT_TO`, `VITE_TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY` in Vercel → Settings → Environment Variables (see `.env.example`). Use `npx vercel dev` to test locally — `npm run dev` does not serve `/api`.
+- **Contact form** — submissions POST to `/api/contact`, which checks [Cloudflare Turnstile](https://www.cloudflare.com/products/turnstile/) and emails the message via [Resend](https://resend.com). The logic is in `lib/contact.js`, wrapped for both hosts: `functions/api/contact.js` (Cloudflare Pages, production) and `api/contact.js` (Vercel demo). Set `RESEND_API_KEY`, `TURNSTILE_SECRET_KEY`, `VITE_TURNSTILE_SITE_KEY`, `CONTACT_FROM` and `CONTACT_TO` in the host's environment variables (see `.env.example`).
 - **Services copy** — the four services listed are placeholders based on common agency offerings — edit `Services.jsx` to match what you actually offer.
