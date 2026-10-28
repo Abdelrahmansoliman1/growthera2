@@ -27,13 +27,20 @@ export default function Header() {
   }, []);
 
   // Watches each section and marks its nav link active when that
-  // section crosses the middle of the viewport.
+  // section crosses the middle of the viewport. The hero (#home) is watched
+  // too, so scrolling back to the top clears the highlight and the URL hash.
   useEffect(() => {
-    const sections = NAV_LINKS.map((l) => document.querySelector(l.href)).filter(Boolean);
-const observer = new IntersectionObserver(
+    const sections = ["#home", ...NAV_LINKS.map((l) => l.href)]
+      .map((href) => document.querySelector(href))
+      .filter(Boolean);
+    const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
+          if (!entry.isIntersecting) return;
+          if (entry.target.id === "home") {
+            setActive("");
+            window.history.replaceState(null, "", window.location.pathname + window.location.search);
+          } else {
             const href = `#${entry.target.id}`;
             setActive(href);
             window.history.replaceState(null, "", href);

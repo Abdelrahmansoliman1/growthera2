@@ -8,6 +8,7 @@ import { trackPointer } from "./ui/Reveal.jsx";
 export default function Hero() {
   return (
     <section
+      id="home"
       onMouseMove={trackPointer}
       className="hero relative overflow-hidden bg-neutral-950 text-white px-6 md:px-10 py-28 md:py-0 min-h-screen md:h-screen flex flex-col justify-center"
     >
