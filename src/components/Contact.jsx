@@ -29,7 +29,7 @@ function loadTurnstile() {
 }
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: "", email: "", message: "", company: "" });
+  const [form, setForm] = useState({ name: "", email: "", phone: "", message: "", company: "" });
   const [status, setStatus] = useState("idle"); // idle | submitting | success | error
   const [turnstileToken, setTurnstileToken] = useState("");
   const turnstileRef = useRef(null);
@@ -81,7 +81,7 @@ export default function Contact() {
 
       if (res.ok) {
         setStatus("success");
-        setForm({ name: "", email: "", message: "", company: "" });
+        setForm({ name: "", email: "", phone: "", message: "", company: "" });
       } else {
         setStatus("error");
       }
@@ -175,6 +175,24 @@ export default function Contact() {
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
                   className="w-full bg-neutral-900 border border-neutral-700 focus:border-era-green focus:outline-none text-white placeholder-neutral-500 px-4 py-3 text-sm"
                   placeholder="you@brand.com"
+                  disabled={status === "submitting"}
+                />
+              </div>
+              <div>
+                <label className="tracked-label text-xs text-neutral-400 mb-2 block">Mobile Number</label>
+                <input
+                  required
+                  type="tel"
+                  name="phone"
+                  autoComplete="tel"
+                  inputMode="tel"
+                  pattern="\+?[0-9\s\-\(\)]{7,20}"
+                  title="Enter a valid mobile number, e.g. +20 100 123 4567"
+                  dir="ltr"
+                  value={form.phone}
+                  onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                  className="w-full bg-neutral-900 border border-neutral-700 focus:border-era-green focus:outline-none text-white placeholder-neutral-500 px-4 py-3 text-sm"
+                  placeholder="+20 100 123 4567"
                   disabled={status === "submitting"}
                 />
               </div>
