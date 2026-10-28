@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Mail, Send, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
+import { Mail, Phone, Send, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
 import Logo from "./Logo.jsx";
 import Eyebrow from "./ui/Eyebrow.jsx";
 
@@ -107,18 +107,26 @@ export default function Contact() {
 
       <div className="relative max-w-6xl mx-auto grid md:grid-cols-2 gap-16">
         <div>
-          <Eyebrow dark>Get In Touch</Eyebrow>
+          <Eyebrow dark>Contact</Eyebrow>
           <h2 className="font-display font-bold text-3xl md:text-4xl mb-4">
-            Let's grow your brand.
+            Let's grow together.
           </h2>
-          <p className="text-neutral-300 max-w-md leading-relaxed">
-            Tell us a bit about your brand and what you're looking to grow.
-            We'll get back to you within one business day.
+          <p className="text-era-green font-display font-medium mb-3">
+            Every great partnership starts with a conversation.
           </p>
-          <div className="mt-10 flex items-center gap-3 text-neutral-300">
-            <Mail size={18} className="text-era-green" />
-            <a href="mailto:info@growtheraeg.com" className="text-sm">
+          <p className="text-neutral-300 max-w-md leading-relaxed">
+            Building a brand, launching a campaign, or planning an event? Let's
+            explore it together — and turn your next idea into your next
+            opportunity.
+          </p>
+          <div className="mt-10 flex flex-col gap-4 text-neutral-300">
+            <a href="mailto:info@growtheraeg.com" className="flex items-center gap-3 text-sm hover:text-white">
+              <Mail size={18} className="text-era-green" />
               info@growtheraeg.com
+            </a>
+            <a href="tel:+201555419209" className="flex items-center gap-3 text-sm hover:text-white">
+              <Phone size={18} className="text-era-green" />
+              <span dir="ltr">+20 155 541 9209</span>
             </a>
           </div>
         </div>

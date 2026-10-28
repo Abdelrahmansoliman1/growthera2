@@ -11,16 +11,17 @@ export default function Hero() {
       </div>
 
       <div className="relative max-w-4xl mx-auto lg:-translate-x-72">
-        <Eyebrow dark>Growth Era — Marketing Agency</Eyebrow>
+        <Eyebrow dark>Integrated Marketing &amp; Creative Agency</Eyebrow>
         <h1 className="font-display font-bold tracking-tight leading-[1.05] text-5xl sm:text-6xl md:text-7xl">
           Marketing that
           <br />
           <span className="text-era-green">grows brands.</span>
         </h1>
         <p className="mt-6 max-w-xl text-neutral-300 text-base md:text-lg leading-relaxed">
-          We're a performance-driven marketing partner for brands ready for
-          their next phase — pairing sharp strategy with hands-on execution
-          across brand, content, and paid growth.
+          Growth isn't a coincidence — it's built with purpose. We bring
+          together a clear vision, a strong strategy, and creative ideas that
+          make a difference, to help brands move forward and turn
+          opportunities into growth.
         </p>
         <div className="mt-10 flex flex-wrap gap-4">
           <PrimaryButton href="#contact">Start a Project</PrimaryButton>

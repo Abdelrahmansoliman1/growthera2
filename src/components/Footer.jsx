@@ -7,6 +7,7 @@ export default function Footer() {
         <div className="flex items-center gap-2.5">
           <Logo light className="h-6 w-6" />
           <span className="tracked-label text-xs text-neutral-400">Growth Era</span>
+          <span className="hidden md:inline text-xs text-neutral-500">— Marketing That Grows Brands.</span>
         </div>
         <span className="tracked-label text-[10px] text-neutral-500">
           © 2026 Growth Era. All rights reserved.

@@ -6,6 +6,9 @@ import PrimaryButton from "./ui/PrimaryButton.jsx";
 const NAV_LINKS = [
   { label: "About", href: "#about" },
   { label: "Services", href: "#services" },
+  { label: "Process", href: "#process" },
+  { label: "Industries", href: "#industries" },
+  { label: "Why Us", href: "#why-us" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -79,7 +82,7 @@ const observer = new IntersectionObserver(
           </span>
         </a>
 
-        <nav className="hidden md:flex items-center gap-9">
+        <nav className="hidden lg:flex items-center gap-8">
           {NAV_LINKS.map((l) => (
             <a key={l.href} href={l.href} className={linkClasses(l.href, "text-xs")}>
               {l.label}
@@ -89,7 +92,7 @@ const observer = new IntersectionObserver(
         </nav>
 
         <button
-          className={`md:hidden transition-colors duration-300 ${
+          className={`lg:hidden transition-colors duration-300 ${
             isLight ? "text-white" : "text-neutral-950"
           }`}
           onClick={() => setMenuOpen((v) => !v)}
@@ -100,7 +103,7 @@ const observer = new IntersectionObserver(
       </div>
 
       {menuOpen && (
-        <div className="md:hidden border-t border-neutral-200 bg-white px-6 py-6 flex flex-col gap-5">
+        <div className="lg:hidden border-t border-neutral-200 bg-white px-6 py-6 flex flex-col gap-5">
           {NAV_LINKS.map((l) => (
             <a
               key={l.href}

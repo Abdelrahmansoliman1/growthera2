@@ -1,46 +1,104 @@
-import { ArrowUpRight } from "lucide-react";
 import Eyebrow from "./ui/Eyebrow.jsx";
 
 const VALUES = [
-  { title: "Strategy first", desc: "We start with positioning and audience — never tactics." },
-  { title: "Built to perform", desc: "Every channel is measured against real growth metrics." },
-  { title: "Brand-obsessed", desc: "Creative that builds equity, not just impressions." },
+  { title: "Strategic Thinking", desc: "Every decision starts with understanding the bigger picture." },
+  { title: "Creative Excellence", desc: "We turn ideas into meaningful and distinctive brand experiences." },
+  { title: "Collaboration", desc: "We believe the best work comes from strong partnerships." },
+  { title: "Accountability", desc: "We take ownership of our work and commitments." },
+  { title: "Continuous Improvement", desc: "We learn, adapt, and evolve with every opportunity." },
+];
+
+const PURPOSE = [
+  {
+    label: "Our Vision",
+    text: "To become a trusted growth partner for ambitious brands, shaping the future of marketing through strategic thinking, creative innovation, and meaningful collaboration.",
+  },
+  {
+    label: "Our Mission",
+    text: "To empower businesses with integrated marketing and creative solutions that strengthen their presence, connect them with the right audiences, and support sustainable growth.",
+  },
 ];
 
 export default function About() {
   return (
     <section id="about" className="scroll-mt-20 bg-white px-6 md:px-10 py-24 md:py-28">
-      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-start">
-        <div>
-          <Eyebrow>Who We Are</Eyebrow>
-          <h2 className="font-display font-bold text-3xl md:text-4xl text-neutral-950 mb-6">
-            About Growth Era
-          </h2>
-          <p className="text-neutral-600 leading-relaxed text-base md:text-lg">
-            Growth Era is a marketing agency built for brands that are ready
-            to move into their next phase. We pair strategic thinking with
-            hands-on execution, so every campaign compounds — not just
-            converts.
-          </p>
-          <p className="mt-4 text-neutral-600 leading-relaxed text-base md:text-lg">
-            No bloated retainers. No generic playbooks. Just marketing built
-            around how your brand actually grows.
-          </p>
+      <div className="max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-[1fr_auto] gap-16 items-start">
+          <div>
+            <Eyebrow>About Us</Eyebrow>
+            <h2 className="font-display font-bold text-3xl md:text-4xl text-neutral-950 mb-6">
+              About Growth Era
+            </h2>
+            <p className="text-neutral-950 leading-relaxed text-lg md:text-xl">
+              An integrated marketing and creative agency, backed by a team with
+              5 years of industry experience, helping businesses build stronger
+              brands and grow sustainably.
+            </p>
+            <div className="mt-6 grid sm:grid-cols-2 gap-6 text-neutral-600 leading-relaxed">
+              <p>
+                We combine strategy, branding, advertising, content, and event
+                coverage into cohesive experiences tailored to each business.
+              </p>
+              <p>
+                From brand identities to campaigns, events, and advertising, we
+                turn objectives into actionable marketing.
+              </p>
+            </div>
+            <p className="mt-8 font-display font-semibold text-neutral-950 border-l-2 border-era-green pl-4">
+              We don't believe in one-size-fits-all solutions. We believe in
+              building what works for your brand.
+            </p>
+          </div>
+
+          <div className="md:border-l md:border-neutral-200 md:pl-12 md:pt-10">
+            <div className="font-display font-bold text-8xl md:text-9xl leading-none text-neutral-950">
+              5<span className="text-era-green">.</span>
+            </div>
+            <div className="tracked-label text-xs text-neutral-500 mt-4 max-w-[14rem] leading-relaxed">
+              Years of industry experience across our team
+            </div>
+          </div>
         </div>
 
-        <div className="flex flex-col gap-5">
-          {VALUES.map((item) => (
-            <div
-              key={item.title}
-              className="cut-card border border-neutral-200 px-6 py-5 flex items-start gap-4"
-            >
-              <ArrowUpRight size={18} className="text-era-green mt-0.5 flex-shrink-0" strokeWidth={2.5} />
-              <div>
-                <div className="font-display font-semibold text-neutral-950 mb-1">{item.title}</div>
-                <div className="text-sm text-neutral-500 leading-relaxed">{item.desc}</div>
-              </div>
+        <div className="mt-20 grid md:grid-cols-2 gap-6">
+          {PURPOSE.map((p) => (
+            <div key={p.label} className="cut-card bg-neutral-950 text-white p-8 md:p-10">
+              <div className="tracked-label text-xs text-era-green mb-4">{p.label}</div>
+              <p className="font-display text-xl md:text-2xl leading-snug">{p.text}</p>
             </div>
           ))}
+        </div>
+
+        <div className="mt-20">
+          <Eyebrow>Our Core Values</Eyebrow>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            {VALUES.map((v, i) => (
+              <div
+                key={v.title}
+                className={`cut-card p-6 ${
+                  i === VALUES.length - 1
+                    ? "bg-era-green text-neutral-950"
+                    : "border border-neutral-200"
+                }`}
+              >
+                <div
+                  className={`font-display text-2xl mb-3 ${
+                    i === VALUES.length - 1 ? "text-neutral-950" : "text-era-green"
+                  }`}
+                >
+                  {String(i + 1).padStart(2, "0")}
+                </div>
+                <div className="font-display font-semibold text-neutral-950 mb-2">{v.title}</div>
+                <div
+                  className={`text-sm leading-relaxed ${
+                    i === VALUES.length - 1 ? "text-neutral-800" : "text-neutral-500"
+                  }`}
+                >
+                  {v.desc}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
