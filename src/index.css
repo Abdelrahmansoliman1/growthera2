@@ -66,7 +66,7 @@ html {
 
 .hero-pointer {
   background: radial-gradient(
-    500px circle at var(--x, 70%) var(--y, 40%),
+    var(--hero-glow-size, 500px) circle at var(--x, 70%) var(--y, 40%),
     rgba(134, 224, 0, 0.12),
     transparent 60%
   );
@@ -132,7 +132,7 @@ html {
   opacity: 0;
   transition: opacity 0.3s;
   background: radial-gradient(
-    320px circle at var(--x, 50%) var(--y, 50%),
+    var(--card-glow-size, 320px) circle at var(--x, 50%) var(--y, 50%),
     rgba(134, 224, 0, 0.14),
     transparent 65%
   );
@@ -150,11 +150,11 @@ html {
 }
 
 /* ---------- Touch screens and phones ---------- */
-/* No mouse to follow: taps would make the glows jump, so hide them. */
+/* Smaller pointer glows so they fit small screens. */
 @media (hover: none), (max-width: 767px) {
-  .hero-pointer,
-  .spotlight::before {
-    display: none;
+  :root {
+    --hero-glow-size: 200px;
+    --card-glow-size: 160px;
   }
 }
 
