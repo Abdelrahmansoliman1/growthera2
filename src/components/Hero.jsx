@@ -14,11 +14,11 @@ export default function Hero() {
     >
       {/* Background: grid lines, drifting green glow, glow that follows the pointer */}
       <div className="hero-grid absolute inset-0 pointer-events-none" />
-      <div className="animate-glow absolute -right-40 top-1/4 h-[520px] w-[520px] rounded-full bg-era-green/20 blur-[120px] pointer-events-none" />
+      <div className="animate-glow absolute -right-24 top-1/3 h-[240px] w-[240px] bg-era-green/15 blur-[70px] md:-right-40 md:top-1/4 md:h-[520px] md:w-[520px] md:bg-era-green/20 md:blur-[120px] rounded-full pointer-events-none" />
       <div className="hero-pointer absolute inset-0 pointer-events-none" />
 
       <div className="animate-float absolute -right-16 top-24 md:-right-10 md:top-1/2 md:-translate-y-1/2 opacity-15 md:opacity-25 pointer-events-none">
-        <Logo light className="h-[320px] w-[320px] md:h-[460px] md:w-[460px] drop-shadow-[0_0_60px_rgba(134,224,0,0.35)]" />
+        <Logo light className="h-[260px] w-[260px] md:h-[460px] md:w-[460px] drop-shadow-[0_0_24px_rgba(134,224,0,0.25)] md:drop-shadow-[0_0_60px_rgba(134,224,0,0.35)]" />
       </div>
 
       <div className="relative max-w-4xl mx-auto lg:-translate-x-72">
