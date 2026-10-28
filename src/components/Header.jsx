@@ -95,7 +95,7 @@ export default function Header() {
               {l.label}
             </a>
           ))}
-          <PrimaryButton href="#contact">Start a Project</PrimaryButton>
+          <PrimaryButton href="#contact">Let's Grow Together</PrimaryButton>
         </nav>
 
         <button
@@ -122,7 +122,7 @@ export default function Header() {
             </a>
           ))}
           <PrimaryButton href="#contact" onClick={() => setMenuOpen(false)}>
-            Start a Project
+            Let's Grow Together
           </PrimaryButton>
         </div>
       )}

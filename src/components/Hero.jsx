@@ -43,7 +43,7 @@ export default function Hero() {
           opportunities into growth.
         </p>
         <div className="mt-10 flex flex-wrap gap-4 animate-fade-up" style={{ animationDelay: "700ms" }}>
-          <PrimaryButton href="#contact">Start a Project</PrimaryButton>
+          <PrimaryButton href="#contact">Let's Grow Together</PrimaryButton>
           <GhostButton href="#services">See what we do</GhostButton>
         </div>
       </div>
