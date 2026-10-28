@@ -1,4 +1,5 @@
 import Eyebrow from "./ui/Eyebrow.jsx";
+import Reveal, { trackPointer } from "./ui/Reveal.jsx";
 
 const REASONS = [
   { title: "Strategy Before Execution", desc: "Your goals first, then the right direction." },
@@ -16,28 +17,35 @@ export default function WhyUs() {
       className="scroll-mt-20 bg-neutral-50 border-y border-neutral-200 px-6 md:px-10 py-24 md:py-28"
     >
       <div className="max-w-6xl mx-auto">
-        <Eyebrow>Why Growth Era?</Eyebrow>
-        <h2 className="font-display font-bold text-3xl md:text-4xl text-neutral-950 mb-14">
+        <Reveal className="mb-14">
+          <Eyebrow>Why Growth Era?</Eyebrow>
+          <h2 className="font-display font-bold text-3xl md:text-4xl text-neutral-950">
           More than marketing.
           <br />
           <span className="text-era-green">A partner in growth.</span>
-        </h2>
+          </h2>
+        </Reveal>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {REASONS.map((r, i) => (
-            <div key={r.title} className="cut-card bg-white border border-neutral-200 p-7">
+            <Reveal
+              key={r.title}
+              delay={(i % 3) * 120}
+              onMouseMove={trackPointer}
+              className="spotlight lift cut-card bg-white border border-neutral-200 hover:border-era-green p-7 h-full"
+            >
               <div className="font-display text-sm text-era-green mb-3">
                 {String(i + 1).padStart(2, "0")}
               </div>
               <div className="font-display font-semibold text-lg text-neutral-950 mb-2">{r.title}</div>
               <div className="text-sm text-neutral-500 leading-relaxed">{r.desc}</div>
-            </div>
+            </Reveal>
           ))}
         </div>
 
-        <p className="mt-10 font-display font-semibold text-neutral-950 border-l-2 border-era-green pl-4">
+        <Reveal as="p" className="mt-10 font-display font-semibold text-neutral-950 border-l-2 border-era-green pl-4">
           Your vision. Our expertise. A shared ambition to grow.
-        </p>
+        </Reveal>
       </div>
     </section>
   );

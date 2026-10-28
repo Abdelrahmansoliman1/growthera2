@@ -7,10 +7,10 @@ export default function PrimaryButton({ children, href, onClick, type = "button"
       href={href}
       type={href ? undefined : type}
       onClick={onClick}
-      className="cut tracked-label text-xs inline-flex items-center gap-2 bg-era-green text-neutral-950 px-6 py-3 font-semibold hover:bg-white transition-colors duration-200"
+      className="group cut tracked-label text-xs inline-flex items-center gap-2 bg-era-green text-neutral-950 px-6 py-3 font-semibold hover:bg-white transition-colors duration-200"
     >
       {children}
-      <ArrowUpRight size={14} strokeWidth={2.5} />
+      <ArrowUpRight size={14} strokeWidth={2.5} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
     </Comp>
   );
 }

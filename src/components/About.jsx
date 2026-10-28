@@ -1,4 +1,31 @@
+import { useEffect, useState } from "react";
 import Eyebrow from "./ui/Eyebrow.jsx";
+import Reveal, { useInView, trackPointer } from "./ui/Reveal.jsx";
+
+// Counts up from 0 to `to` once it scrolls into view.
+function CountUp({ to, duration = 1400 }) {
+  const [ref, inView] = useInView();
+  const [value, setValue] = useState(0);
+
+  useEffect(() => {
+    if (!inView) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setValue(to);
+      return;
+    }
+    let frame;
+    const start = performance.now();
+    const tick = (now) => {
+      const t = Math.min((now - start) / duration, 1);
+      setValue(Math.round(to * (1 - Math.pow(1 - t, 3))));
+      if (t < 1) frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [inView, to, duration]);
+
+  return <span ref={ref}>{value}</span>;
+}
 
 const VALUES = [
   { title: "Strategic Thinking", desc: "Every decision starts with understanding the bigger picture." },
@@ -24,7 +51,7 @@ export default function About() {
     <section id="about" className="scroll-mt-20 bg-white px-6 md:px-10 py-24 md:py-28">
       <div className="max-w-6xl mx-auto">
         <div className="grid md:grid-cols-[1fr_auto] gap-16 items-start">
-          <div>
+          <Reveal>
             <Eyebrow>About Us</Eyebrow>
             <h2 className="font-display font-bold text-3xl md:text-4xl text-neutral-950 mb-6">
               About Growth Era
@@ -48,24 +75,30 @@ export default function About() {
               We don't believe in one-size-fits-all solutions. We believe in
               building what works for your brand.
             </p>
-          </div>
+          </Reveal>
 
-          <div className="md:border-l md:border-neutral-200 md:pl-12 md:pt-10">
+          <Reveal delay={150} className="md:border-l md:border-neutral-200 md:pl-12 md:pt-10">
             <div className="font-display font-bold text-8xl md:text-9xl leading-none text-neutral-950">
-              5<span className="text-era-green">.</span>
+              <CountUp to={5} />
+              <span className="text-era-green">.</span>
             </div>
             <div className="tracked-label text-xs text-neutral-500 mt-4 max-w-[14rem] leading-relaxed">
               Years of industry experience across our team
             </div>
-          </div>
+          </Reveal>
         </div>
 
         <div className="mt-20 grid md:grid-cols-2 gap-6">
-          {PURPOSE.map((p) => (
-            <div key={p.label} className="cut-card bg-neutral-950 text-white p-8 md:p-10">
+          {PURPOSE.map((p, i) => (
+            <Reveal
+              key={p.label}
+              delay={i * 120}
+              onMouseMove={trackPointer}
+              className="spotlight cut-card bg-neutral-950 text-white p-8 md:p-10"
+            >
               <div className="tracked-label text-xs text-era-green mb-4">{p.label}</div>
               <p className="font-display text-xl md:text-2xl leading-snug">{p.text}</p>
-            </div>
+            </Reveal>
           ))}
         </div>
 
@@ -73,12 +106,13 @@ export default function About() {
           <Eyebrow>Our Core Values</Eyebrow>
           <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
             {VALUES.map((v, i) => (
-              <div
+              <Reveal
                 key={v.title}
-                className={`cut-card p-6 ${
+                delay={i * 90}
+                className={`cut-card lift p-6 h-full ${
                   i === VALUES.length - 1
                     ? "bg-era-green text-neutral-950"
-                    : "border border-neutral-200"
+                    : "border border-neutral-200 hover:border-era-green"
                 }`}
               >
                 <div
@@ -96,7 +130,7 @@ export default function About() {
                 >
                   {v.desc}
                 </div>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>

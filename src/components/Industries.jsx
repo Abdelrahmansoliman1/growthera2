@@ -1,4 +1,5 @@
 import Eyebrow from "./ui/Eyebrow.jsx";
+import Reveal from "./ui/Reveal.jsx";
 
 const INDUSTRIES = [
   { title: "Logistics & Shipping", desc: "Corporate branding, digital content, and campaigns." },
@@ -13,24 +14,30 @@ export default function Industries() {
   return (
     <section id="industries" className="scroll-mt-20 bg-white px-6 md:px-10 py-24 md:py-28">
       <div className="max-w-6xl mx-auto">
-        <Eyebrow>Industries We Understand</Eyebrow>
-        <div className="grid md:grid-cols-2 gap-6 items-end mb-14">
-          <h2 className="font-display font-bold text-3xl md:text-4xl text-neutral-950">
+        <Reveal className="grid md:grid-cols-2 gap-6 items-end mb-14">
+          <div>
+            <Eyebrow>Industries We Understand</Eyebrow>
+            <h2 className="font-display font-bold text-3xl md:text-4xl text-neutral-950">
             Different industries.
             <br />
             Different challenges.
-          </h2>
+            </h2>
+          </div>
           <p className="text-neutral-600 leading-relaxed md:text-right">
             Every industry has its own audience and needs. Our approach adapts to each.
           </p>
-        </div>
+        </Reveal>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-10">
           {INDUSTRIES.map((ind, i) => (
-            <div key={ind.title} className="border-t border-neutral-200 pt-5 relative">
-              <span className="absolute -top-px left-0 h-0.5 w-12 bg-era-green" />
+            <Reveal
+              key={ind.title}
+              delay={(i % 3) * 120}
+              className="group border-t border-neutral-200 pt-5 relative cursor-default"
+            >
+              <span className="absolute -top-px left-0 h-0.5 w-12 bg-era-green transition-all duration-500 group-hover:w-full" />
               <div className="flex gap-4">
-                <span className="font-display text-2xl text-era-green leading-none">
+                <span className="font-display text-2xl text-era-green leading-none transition-transform duration-300 group-hover:-translate-y-1">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <div>
@@ -38,13 +45,13 @@ export default function Industries() {
                   <div className="text-sm text-neutral-500 leading-relaxed">{ind.desc}</div>
                 </div>
               </div>
-            </div>
+            </Reveal>
           ))}
         </div>
 
-        <p className="mt-14 font-display font-semibold text-neutral-950 border-l-2 border-era-green pl-4">
+        <Reveal as="p" className="mt-14 font-display font-semibold text-neutral-950 border-l-2 border-era-green pl-4">
           Our solutions are shaped around each brand's goals, audience, and market context.
-        </p>
+        </Reveal>
       </div>
     </section>
   );
