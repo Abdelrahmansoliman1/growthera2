@@ -179,7 +179,7 @@ export default function Contact() {
                 />
               </div>
               <div>
-                <label className="tracked-label text-xs text-neutral-400 mb-2 block">Mobile Number</label>
+                <label className="tracked-label text-xs text-neutral-400 mb-2 block">Phone Number</label>
                 <input
                   required
                   type="tel"
@@ -187,12 +187,12 @@ export default function Contact() {
                   autoComplete="tel"
                   inputMode="tel"
                   pattern="\+?[0-9\s\-\(\)]{7,20}"
-                  title="Enter a valid mobile number, e.g. +20 100 123 4567"
+                  
                   dir="ltr"
                   value={form.phone}
                   onChange={(e) => setForm({ ...form, phone: e.target.value })}
                   className="w-full bg-neutral-900 border border-neutral-700 focus:border-era-green focus:outline-none text-white placeholder-neutral-500 px-4 py-3 text-sm"
-                  placeholder="+20 100 123 4567"
+                  placeholder="Your phone number"
                   disabled={status === "submitting"}
                 />
               </div>
